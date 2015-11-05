@@ -1,0 +1,38 @@
+<br/>
+	
+<% comments.each do |c| %>
+
+	<div class="row">
+		<div class="col-lg-1">	
+			<%= image_tag c.user.picture,:width => 30, :height => 30,:class =>'img-circle' %>  
+		</div>
+		<div class="col-lg-7">	
+			<%= c.user.full_name.capitalize %>
+		</div>
+		<div class="col-lg-4">	
+			<%= c.created_at.strftime(I18n.t('date_format')) %> ,<%= c.created_at.strftime(I18n.t('time_format')) %>
+			<% if c.user_id == current_user.id %>
+	        <%= link_to edit_post_comment_path(post_id: c.post.id,id: c.id) do %>
+  	    		  <span class="glyphicon glyphicon-edit"></span>
+    		    <% end %>
+	        <%= link_to post_comment_path(id: c.id,post_id: c.post.id), method: :delete, data: {confirm: 'You sure ?'} do %>
+  	    		  <span class="glyphicon glyphicon-remove"></span>
+    		    <% end %>
+			<% end %>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-1">	
+		</div>
+		<div class="col-lg-8">	
+			<%= c.text.gsub(/\n/, '<br />').html_safe %>
+		</div>
+		<div class="col-lg-3">	
+		</div>
+	</div>
+
+	<hr/>
+
+<% end %>
+

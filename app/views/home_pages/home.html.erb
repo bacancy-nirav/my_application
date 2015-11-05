@@ -1,0 +1,16 @@
+<% if current_user %>
+	
+	<h2>Hi Welcome to the My Application</h2>
+
+		<table class="table", border='1'>
+			<tr><th>Profile</th><td><%= image_tag current_user.picture.url %></td></tr>
+			<tr><th>Email</th><td><%= current_user.email %></td></tr>
+			<tr><th>First_Name</th><td><%= current_user.first_name %></td></tr>
+			<tr><th>Last_Name</th><td><%= current_user.last_name %></td></tr>
+		</table>
+	
+	<% else %>
+
+		<h2>Hi Welcome to the My Application</h2>
+
+<% end %>	

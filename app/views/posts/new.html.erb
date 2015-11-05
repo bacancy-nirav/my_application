@@ -1,0 +1,31 @@
+<%= form_for @post do |f| %>
+<% if @post.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+    <% @post.errors.full_messages.each do |msg| %>
+      <div class="alert alert-danger">
+      <li><%= msg %></li>
+      </div>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+  <p>
+    <%= f.label :Content %><br>
+    <%= f.text_area :content %>
+  </p>
+
+  <p>
+    <%= f.label :Visibility %><br>
+    <%= f.select :visibility, [['Friend',true] ,['Public',true]],{prompt: 'Select Visibility'}%>
+  </p>
+  <p>
+    <%= f.label :Image %><br>
+    <%= f.file_field :image%>
+  </p>
+  <p>
+    <div style="margin-top:30px">
+      <%= f.submit "Save"%>
+    </div>
+  </p>
+<% end %>

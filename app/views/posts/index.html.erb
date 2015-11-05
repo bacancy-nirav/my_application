@@ -1,0 +1,13 @@
+<h2><span class="label label-default">Users Posts </span></h2>
+	<%= link_to "New Post",new_post_path,class: 'button'%><hr/>
+
+<div class="infinite-table">
+    <%= render :partial => 'posts/posts', :object => @posts %>
+</div>
+
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("a.fancybox").fancybox();
+});
+</script>

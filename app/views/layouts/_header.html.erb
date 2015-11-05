@@ -1,0 +1,59 @@
+<% if  user_signed_in?  %>
+
+<header class="navbar navbar-fixed-top navbar-inverse" >
+  <div class="container">
+    <%= link_to "My Application", root_path, id: "logo" %>
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Home",   root_path %></li>
+        <li><%= link_to "Help",   help_path %></li>
+        <li><%#= link_to "Users", user_path %></li>
+         <li><%= link_to "Users", all_users_path %>
+          <li><%= link_to "New Post", new_post_path %>
+          <li><%= link_to "All Posts", posts_path %>
+          </li>
+         <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Account <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Settings", edit_user_registration_path %></li>
+              <li><%= link_to "My Friends", my_friends_path %></li>
+              <li><%= link_to(approve_friend_request_path) do %>
+            Friend Requests(<%=current_user.pending_invited_by.count%>)
+
+          <% end %>
+              <li class="divider"></li>
+              <li>
+                 <li><%= link_to 'Logout',destroy_user_session_path, method: :delete  %></li>
+              </li>
+            </ul>
+          </li>
+       
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<% else %>
+
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <%= link_to "My Application", root_path, id: "logo" %>
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Home",   root_path %></li>
+        <li><%= link_to "Help",   help_path %></li>
+        <li><%= link_to "Login", new_user_session_path %></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+<% end %>
+
+
+
+
+

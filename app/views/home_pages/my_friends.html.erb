@@ -1,0 +1,21 @@
+<h2>My Friends</h2>
+            
+<table>
+	 <table class="table">
+    <th>No</th>
+    <th>Image</th>
+    <th>Email</th>
+
+<% @users.each_with_index do |user,index|%>
+
+   <%if current_user.friend_with?(user) %>
+      <tr>
+        <td ><%= index+1%></td>
+        <td><%=image_tag user.picture,:width => 50, :height => 50%></td>
+        <td><%= user.email%></td>
+    <%end%>
+       </tr>
+  <%end%> 
+ 
+</table>
+
