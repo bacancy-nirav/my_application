@@ -18,6 +18,8 @@ gem 'draper'
 gem 'pundit'
 gem 'amistad'
 gem 'acts_as_commentable'
+gem 'omniauth-facebook'
+
 # Use SCSS for stylesheets
 gem 'fancybox2-rails', '~> 0.2.8'
 gem 'sass-rails', '~> 5.0'

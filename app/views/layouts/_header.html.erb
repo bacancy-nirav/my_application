@@ -45,15 +45,9 @@
         <li><%= link_to "Home",   root_path %></li>
         <li><%= link_to "Help",   help_path %></li>
         <li><%= link_to "Login", new_user_session_path %></li>
+        <li><%= link_to "Facebook Login", user_omniauth_authorize_path(:facebook) %></li>
       </ul>
     </nav>
   </div>
 </header>
-
-
 <% end %>
-
-
-
-
-

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105092410) do
+ActiveRecord::Schema.define(version: 20151105125442) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -97,9 +97,13 @@ ActiveRecord::Schema.define(version: 20151105092410) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "username"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["provider"], name: "index_users_on_provider"
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["uid"], name: "index_users_on_uid"
 
 end

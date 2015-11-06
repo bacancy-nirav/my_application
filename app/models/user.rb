@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
   include Amistad::FriendModel
   
   mount_uploader :picture, PictureUploader
-  validates :first_name, presence: true, length: { maximum: 50 }
-  validates :last_name, presence: true, length: { maximum: 50 }
+  #validates :first_name, presence: true, length: { maximum: 50 }
+  #validates :last_name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 255 }
   validates :password, presence: true, length: { minimum: 6 }, on: :create
   validate  :picture_size
@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, 
          :validatable, :lockable, :authentication_keys => [:login]
 
+  devise :omniauthable, :omniauth_providers => [:facebook]
 
   def login=(login)
     @login = login
@@ -40,6 +41,25 @@ class User < ActiveRecord::Base
         where(conditions.to_h).first
       end
     end
+
+
+def self.from_omniauth(auth)
+  where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    user.email = auth.info.email
+    user.password = Devise.friendly_token[0,20]
+    user.first_name = auth.info.name   # assuming the user model has a name
+    #user.last_name = auth.info.name   # assuming the user model has a name
+    #user.username = auth.info.email
+  end
+end
+
+ def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
+      end
+    end
+  end
 
   # def full_name
   #   puts "================================================"
