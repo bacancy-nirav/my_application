@@ -31,7 +31,6 @@ class PostsController < ApplicationController
     redirect_to :back
   end
 
-
   def update
     if @post.update_attributes(post_param)
       redirect_to posts_path, notice: "The post has been updated"

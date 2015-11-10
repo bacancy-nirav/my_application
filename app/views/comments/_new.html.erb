@@ -12,8 +12,7 @@
 <% end %>
   <p>
     <%= f.label :Comments %><br>
-    <%= f.text_area :text, size: "2x3" %>
+    <%= f.text_area :text, :cols => "75", :rows => "3" %>
     <%= f.submit "Save"%>
   </p>
-
 <% end %>

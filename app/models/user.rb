@@ -9,8 +9,6 @@ class User < ActiveRecord::Base
   include Amistad::FriendModel
   
   mount_uploader :picture, PictureUploader
-  #validates :first_name, presence: true, length: { maximum: 50 }
-  #validates :last_name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 255 }
   validates :password, presence: true, length: { minimum: 6 }, on: :create
   validate  :picture_size
@@ -47,8 +45,8 @@ def self.from_omniauth(auth)
   where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
     user.email = auth.info.email
     user.password = Devise.friendly_token[0,20]
-    user.first_name = auth.info.name   # assuming the user model has a name
-    #user.last_name = auth.info.name   # assuming the user model has a name
+    user.first_name = auth.info.name   
+    #user.last_name = auth.info.name   
     #user.username = auth.info.email
   end
 end

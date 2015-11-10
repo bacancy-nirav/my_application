@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
-before_filter :authenticate_user!
-before_filter :authenticate_require, only: [:edit,:update,:destroy]
+  before_filter :authenticate_user!
+  before_filter :authenticate_require, only: [:edit,:update,:destroy]
 
 	def create
 		@comment = current_user.comments.new(text: params[:comment][:text], post_id: params[:post_id])

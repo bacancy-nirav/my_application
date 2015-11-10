@@ -5,12 +5,11 @@
     <%= link_to "My Friends", root_path, id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home",   root_path %></li>
-        <li><%= link_to "Help",   help_path %></li>
-        <li><%#= link_to "Users", user_path %></li>
-         <li><%= link_to "Users", all_users_path %>
-          <li><%= link_to "New Post", new_post_path %>
-          <li><%= link_to "All Posts", posts_path %>
+        <li><%= link_to "Home",root_path %></li>
+        <li><%= link_to "Help",help_path %></li>
+         <li><%= link_to "Users",users_path %></li>
+          <li><%= link_to "New Post",new_post_path %></li>
+          <li><%= link_to "All Posts",posts_path %></li>
           </li>
          <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -21,7 +20,6 @@
               <li><%= link_to "My Friends", my_friends_path %></li>
               <li><%= link_to(approve_friend_request_path) do %>
             Friend Requests(<%=current_user.pending_invited_by.where("friendships.is_declined = ?", false).count%>)
-
           <% end %>
               <li class="divider"></li>
               <li>
@@ -29,7 +27,6 @@
               </li>
             </ul>
           </li>
-       
       </ul>
     </nav>
   </div>
@@ -44,10 +41,11 @@
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "Home",   root_path %></li>
         <li><%= link_to "Help",   help_path %></li>
-        <li><%= link_to "Login", new_user_session_path %></li>
+        <li><%= link_to "Login", user_session_path %></li>
         <li><%= link_to "Facebook Login", user_omniauth_authorize_path(:facebook) %></li>
       </ul>
     </nav>
   </div>
 </header>
+
 <% end %>

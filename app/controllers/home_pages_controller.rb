@@ -4,10 +4,6 @@ class HomePagesController < ApplicationController
   def home
   end
 
-  def users
-  	@users = User.all
-  end
-
   def help
   end
 
@@ -23,13 +19,8 @@ class HomePagesController < ApplicationController
 
   def show
     if params[:search].present?
-
       search = params[:search]
-      #invite_users = current_user.pending_invited_by.where("friendships.is_declined = ?", false)
-      #if search == invite_users
       @users = User.where("email LIKE ?", "%#{search}%").page(params[:page]).per(5)
-      #else
-      #end
     else 
       @users = User.where("id != ?",current_user.id).order("first_name").page(params[:page]).per(5)
     end
@@ -50,7 +41,6 @@ class HomePagesController < ApplicationController
   def approve_friend_request
      @invite_users = current_user.pending_invited_by.where("friendships.is_declined = ?", false)
      @params = params[:user_id]
-    
     if params[:user_id].present?
        @send_request_user = User.find_by(id: params[:user_id])
        approve_friend_request = current_user.approve @send_request_user
@@ -66,24 +56,5 @@ class HomePagesController < ApplicationController
         @invite_users.update_attributes(is_declined: true)
         redirect_to all_users_path, :notice => "You Request is Declined"
      end
-
-
-    #  @invite_users = current_user.pending_invited_by
-    #  #@count = current_user.pending_invited_by.count
-    #  @params = params[:user_id]
-
-    # @friend = User.find(params[:user_id])
-    # current_user.block @friend
-
-    # redirect_to all_users_path, :notice => "You have blocked #{@friend.first_name}"
-    
-    # if params[:user_id].present?
-    #    @send_request_user = User.find_by(id: params[:user_id])
-    #    approve_friend_request = current_user.approve @send_request_user
-    #    flash[:notice] = "Approve Friend Request"
-    # end
   end
-
-
-
 end

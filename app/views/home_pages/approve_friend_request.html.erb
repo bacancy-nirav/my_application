@@ -1,21 +1,19 @@
 <% if @invite_users.empty? %>
-<h2>No Friends Request Data Found</h2>
+  <h2>No Friends Request Data Found</h2>
 <% else %>
-
-<table class="table">
-  <th>No</th>
-  <th>Image</th>
-  <th>Email</th>
-   <th>Actions</th>
-  
-  <% @invite_users.each_with_index do | invite_user,index|%>
-    <tr>
-      <td><%=index+1%></td>
-      <td><%=image_tag invite_user.picture,:width => 50, :height => 50%></td>
-      <td><%= invite_user.email %></td>
-      <td><%= link_to 'Approve Request', approve_friend_request_path(user_id: invite_user.id),class: 'button' %></td>
-      <td><%= link_to 'Declined', de_clined_path(user_id: invite_user.id), method: :put, class: 'button' %></td>
-    </tr>
+  <table class="table">
+    <th>No</th>
+    <th>Image</th>
+    <th>Email</th>
+    <th>Actions</th>
+      <% @invite_users.each_with_index do | invite_user,index|%>
+        <tr>
+          <td><%=index+1%></td>
+          <td><%=image_tag invite_user.picture,:width => 50, :height => 50%></td>
+          <td><%= invite_user.email %></td>
+          <td><%= link_to 'Approve Request', approve_friend_request_path(user_id: invite_user.id),class: 'button' %></td>
+          <td><%= link_to 'Declined', de_clined_path(user_id: invite_user.id), method: :put, class: 'button' %></td>
+        </tr>
+      <% end %>
   <% end %>
-    <% end %>
 </table>
