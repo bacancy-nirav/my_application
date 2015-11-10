@@ -61,6 +61,12 @@ end
     end
   end
 
+  def is_declined?(user)
+    friendship = find_any_friendship_with(user)
+    return false if friendship.nil?
+    friendship.friendable_id == user.id && friendship.is_declined
+  end
+
   # def full_name
   #   puts "================================================"
   #   puts self.inspect

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105125442) do
+ActiveRecord::Schema.define(version: 20151109102734) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20151105125442) do
     t.integer "friend_id"
     t.integer "blocker_id"
     t.boolean "pending",       default: true
+    t.boolean "is_declined",   default: false
   end
 
   add_index "friendships", ["friendable_id", "friend_id"], name: "index_friendships_on_friendable_id_and_friend_id", unique: true
@@ -71,8 +72,9 @@ ActiveRecord::Schema.define(version: 20151105125442) do
     t.boolean  "visibility"
     t.string   "image"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.date     "view_untill"
   end
 
   add_index "posts", ["user_id"], name: "index_posts_on_user_id"

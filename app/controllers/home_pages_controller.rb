@@ -23,10 +23,15 @@ class HomePagesController < ApplicationController
 
   def show
     if params[:search].present?
+
       search = params[:search]
-      @users = User.where("email LIKE ?", "%#{search}%").page(params[:page]).per(2)
+      #invite_users = current_user.pending_invited_by.where("friendships.is_declined = ?", false)
+      #if search == invite_users
+      @users = User.where("email LIKE ?", "%#{search}%").page(params[:page]).per(5)
+      #else
+      #end
     else 
-      @users = User.where("id != ?",current_user.id).order("first_name").page(params[:page]).per(2)
+      @users = User.where("id != ?",current_user.id).order("first_name").page(params[:page]).per(5)
     end
        @pending_users = current_user.pending_invited.pluck(:friend_id)
   end
@@ -43,8 +48,7 @@ class HomePagesController < ApplicationController
   end
 
   def approve_friend_request
-     @invite_users = current_user.pending_invited_by
-     @count = current_user.pending_invited_by.count
+     @invite_users = current_user.pending_invited_by.where("friendships.is_declined = ?", false)
      @params = params[:user_id]
     
     if params[:user_id].present?
@@ -52,6 +56,32 @@ class HomePagesController < ApplicationController
        approve_friend_request = current_user.approve @send_request_user
        flash[:notice] = "Approve Friend Request"
     end
+  end
+
+
+  def de_clined
+    @friend = User.find(params[:user_id])
+    @invite_users = current_user.send(:find_any_friendship_with, @friend)
+     if @invite_users
+        @invite_users.update_attributes(is_declined: true)
+        redirect_to all_users_path, :notice => "You Request is Declined"
+     end
+
+
+    #  @invite_users = current_user.pending_invited_by
+    #  #@count = current_user.pending_invited_by.count
+    #  @params = params[:user_id]
+
+    # @friend = User.find(params[:user_id])
+    # current_user.block @friend
+
+    # redirect_to all_users_path, :notice => "You have blocked #{@friend.first_name}"
+    
+    # if params[:user_id].present?
+    #    @send_request_user = User.find_by(id: params[:user_id])
+    #    approve_friend_request = current_user.approve @send_request_user
+    #    flash[:notice] = "Approve Friend Request"
+    # end
   end
 
 

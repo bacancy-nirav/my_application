@@ -20,7 +20,7 @@
               <li><%= link_to "Settings", edit_user_registration_path %></li>
               <li><%= link_to "My Friends", my_friends_path %></li>
               <li><%= link_to(approve_friend_request_path) do %>
-            Friend Requests(<%=current_user.pending_invited_by.count%>)
+            Friend Requests(<%=current_user.pending_invited_by.where("friendships.is_declined = ?", false).count%>)
 
           <% end %>
               <li class="divider"></li>

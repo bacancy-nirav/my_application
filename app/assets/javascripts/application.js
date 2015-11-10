@@ -16,3 +16,8 @@
 //= require fancybox
 // require turbolinks
 //= require jquery.infinite-pages
+
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})

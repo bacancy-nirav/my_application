@@ -2,9 +2,14 @@
 	<%= link_to "New Post",new_post_path,class: 'button'%><hr/>
 
 <div class="infinite-table">
+	<table>
     <%= render :partial => 'posts/posts', :object => @posts %>
+  </table>
 </div>
 
+ <p class="pagination">
+    <%= link_to_next_page(@posts, 'See More', :remote => true) %>
+ </p>
 
 <script type="text/javascript">
   $(document).ready(function() {

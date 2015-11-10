@@ -1,5 +1,5 @@
 $("<%=j render(:partial => 'posts/posts', :object => @posts) %>")
-  .appendTo($(".infinite-table"));
+  .appendTo($(".infinite-table table"));
 
 <% if @posts.last_page? %>
   $('.pagination').html("That's all, folks!");

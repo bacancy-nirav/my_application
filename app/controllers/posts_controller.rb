@@ -22,11 +22,6 @@ class PostsController < ApplicationController
     @posts = Post.all.page(params[:page])
   end
 
-  def see_more
-    @comment = Comment.new
-    @posts = Post.all.page(params[:page]).per(10)
-  end
-
   def edit
   end
 
@@ -52,7 +47,7 @@ class PostsController < ApplicationController
   private 
   
   def post_param
-    params.require(:post).permit(:content, :visibility, :image)
+    params.require(:post).permit(:content, :visibility, :image, :view_untill)
   end
 
   def authenticate_require

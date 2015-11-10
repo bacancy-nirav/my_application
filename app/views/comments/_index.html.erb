@@ -12,10 +12,10 @@
 		<div class="col-lg-4">	
 			<%= c.created_at.strftime(I18n.t('date_format')) %> ,<%= c.created_at.strftime(I18n.t('time_format')) %>
 			<% if c.user_id == current_user.id %>
-	        <%= link_to edit_post_comment_path(post_id: c.post.id,id: c.id) do %>
+	        <%= link_to edit_post_comment_path(post_id: c.post.id,id: c.id), data: {toggle: "tooltip", placement: "top"}, title: "Edit" do %>
   	    		  <span class="glyphicon glyphicon-edit"></span>
     		    <% end %>
-	        <%= link_to post_comment_path(id: c.id,post_id: c.post.id), method: :delete, data: {confirm: 'You sure ?'} do %>
+	        <%= link_to post_comment_path(id: c.id,post_id: c.post.id), title: "Delete", method: :delete, data: {toggle: "tooltip", placement: "top",confirm: 'You sure ?'} do %>
   	    		  <span class="glyphicon glyphicon-remove"></span>
     		    <% end %>
 			<% end %>
@@ -26,7 +26,7 @@
 		<div class="col-lg-1">	
 		</div>
 		<div class="col-lg-8">	
-			<%= c.text.gsub(/\n/, '<br />').html_safe %>
+			<%= c.text.truncate(40).gsub(/\n/, '<br />').html_safe %>
 		</div>
 		<div class="col-lg-3">	
 		</div>
@@ -35,4 +35,3 @@
 	<hr/>
 
 <% end %>
-

@@ -1,71 +1,78 @@
 <% @posts.each do |post| %>
 
-<div class="row">
-	<div class="col-lg-1">	
-		<%= image_tag post.user.picture,:width => 60, :height => 60,:class =>'img-circle' %>
+<%if post.view_untill >= post.created_at %>
+
+	<div class="row">
+		<div class="col-lg-1">	
+			<%= image_tag post.user.picture,:width => 60, :height => 60,:class =>'img-circle' %>
+		</div>
+		<div class="col-lg-5">	
+			 <%= post.user.full_name.capitalize %>
+		</div>	
+		
+		<div class="col-lg-6">
+			<%= post.created_at.strftime(I18n.t('date_format')) %> ,<%= post.created_at.strftime(I18n.t('time_format')) %> 
+
+			<% if post.user_id == current_user.id %>
+	        <%= link_to edit_post_path(post), data: {toggle: "tooltip", placement: "top"}, title: "Edit", class: 'btn btn-default' do %>
+	        <span class="glyphicon glyphicon-edit"></span>
+	         Edit
+	        <% end %>
+
+	        <%= link_to post_path(post), title: "Delete", method: :delete,data: { confirm: "Are you sure", toggle: "tooltip", placement: "top"}, class: 'btn btn-default' do %>
+	        <span class="glyphicon glyphicon-remove"></span>
+	         Delete
+	        <% end %>
+			<% end %>
+		</div>
+	</div><br/>
+
+	<div class="row">
+		<div class="col-lg-1">	
+	   </div>
+	    <div class="col-lg-11">
+			<% if post.image.present? %>
+		 		<%= link_to image_tag(post.image.phone.url), post.image.url , :class => "fancybox" %>
+			<% else %>
+			<% end %>
+	    </div>
 	</div>
-	<div class="col-lg-7">	
-		 <%= post.user.full_name.capitalize %>
-	</div>	
-	
-	<div class="col-lg-4">
-		<%= post.created_at.strftime(I18n.t('date_format')) %> ,<%= post.created_at.strftime(I18n.t('time_format')) %> 
 
-		<% if post.user_id == current_user.id %>
-        <%= link_to edit_post_path(post), class: 'btn btn-default' do %>
-        <span class="glyphicon glyphicon-edit"></span>
-         Edit
-        <% end %>
-
-        <%= link_to post_path(post), method: :delete,data: { confirm: "Are you sure"}, class: 'btn btn-default' do %>
-        <span class="glyphicon glyphicon-remove"></span>
-         Delete
-        <% end %>
-		<% end %>
+	<div class="row">
+		<div class="col-lg-1">	
+		</div>
+		<div class="col-lg-11">	
+	    <%= post.content.gsub(/\n/, '<br />').html_safe %>
+		</div> 
 	</div>
-</div><br/>
 
-<div class="row">
-	<div class="col-lg-1">	
-   </div>
-    <div class="col-lg-11">
-		<% if post.image.present? %>
-	 		<%= link_to image_tag(post.image), post.image.url , :class => "fancybox" %>
-		<% else %>
-		<% end %>
-    </div>
-</div>
 
-<div class="row">
-	<div class="col-lg-1">	
+	<div class="row">
+		<div class="col-lg-1">	
+	  </div>
+	  <div class="col-lg-9", style="background-color: ivory;">
+		 	<%= render 'comments/index', :comments => post.post_comments %>
+	  </div>
 	</div>
-	<div class="col-lg-11">	
-    <%= post.content.gsub(/\n/, '<br />').html_safe %>
-	</div> 
-</div>
 
-
-<div class="row">
-	<div class="col-lg-1">	
-  </div>
-  <div class="col-lg-9", style="background-color: ivory;">
-	 	<%= render 'comments/index', :comments => post.post_comments %>
-  </div>
-</div>
-
-<div class="row">
-	<div class="col-lg-1">	
+	<div class="row">
+		<div class="col-lg-1">	
+		</div>
+		<div class="col-lg-9 well", style="background-color: aliceblue;">	
+	  	<%= render 'comments/new', :comment => @comment, :post => post %>
+		</div> 
 	</div>
-	<div class="col-lg-9 well", style="background-color: aliceblue;">	
-  	<%= render 'comments/new', :comment => @comment, :post => post %>
-	</div> 
-</div>
 
-<hr/>
-  
+	<hr/>
+
+	<% else %>
+
+	<% end %>	
+
 <% end %>
 
 
- <p class="pagination">
-    <%= link_to_next_page(@posts, 'See More', :remote => true) %>
- </p>
+
+
+
+
