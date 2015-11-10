@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'orders/new'
+
   root 'home_pages#home'
 
   devise_for :admin_users, ActiveAdmin::Devise.config
