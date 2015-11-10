@@ -15,7 +15,6 @@
       <td><%= invite_user.email %></td>
       <td><%= link_to 'Approve Request', approve_friend_request_path(user_id: invite_user.id),class: 'button' %></td>
       <td><%= link_to 'Declined', de_clined_path(user_id: invite_user.id), method: :put, class: 'button' %></td>
-      <%#= hidden_field_tag 'is_declined', 'true' %>
     </tr>
   <% end %>
     <% end %>

@@ -19,7 +19,7 @@ class PostsController < ApplicationController
 
   def index
     @comment = Comment.new
-    @posts = Post.all.page(params[:page])
+    @posts = Post.where("(view_untill IS NULL) OR ((view_untill IS NOT NULL) AND (view_untill >= ?))", Date.today).page(params[:page])
   end
 
   def edit

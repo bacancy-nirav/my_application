@@ -1,7 +1,6 @@
 <% @posts.each do |post| %>
 
-<%if post.view_untill >= post.created_at %>
-
+<%# if post.view_untill == nil || post.view_untill >= Date.today %>
 	<div class="row">
 		<div class="col-lg-1">	
 			<%= image_tag post.user.picture,:width => 60, :height => 60,:class =>'img-circle' %>
@@ -64,10 +63,9 @@
 	</div>
 
 	<hr/>
-
-	<% else %>
-
-	<% end %>	
+	
+	<%# else %>
+	<%# end %>
 
 <% end %>
 

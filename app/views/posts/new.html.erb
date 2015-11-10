@@ -25,7 +25,7 @@
   </p>
   <p>
     <%= f.label :Select_Date %>
-   <div style="height: 30px;width: 250px;"> <%= f.date_field :view_untill %></div>
+   <div style="height: 30px;width: 250px;"> <%= f.date_field :view_untill, min: Date.today %></div>
   </p>
   <p>
     <div style="margin-top:30px">

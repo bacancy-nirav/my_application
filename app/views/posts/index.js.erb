@@ -2,7 +2,7 @@ $("<%=j render(:partial => 'posts/posts', :object => @posts) %>")
   .appendTo($(".infinite-table table"));
 
 <% if @posts.last_page? %>
-  $('.pagination').html("That's all, folks!");
+  $('.pagination').html(" ");
 <% else %>
   $('.pagination')
     .html("<%=j link_to_next_page(@posts, 'See More', :remote => true) %>");
